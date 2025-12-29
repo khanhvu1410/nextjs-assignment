@@ -17,7 +17,7 @@ export async function createSession(user) {
 }
 
 export async function deleteSession() {
-  cookies().delete('session');
+  (await cookies()).delete('session');
 }
 
 export async function encrypt(payload) {

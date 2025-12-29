@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Project Overview
 
-## Getting Started
+A small Next.js project (App Router) that demonstrates a blog-style front-end and a simple admin area. It uses an in-memory mock database, server API routes, and cookie-based session authentication (`SESSION_SECRET`).
 
-First, run the development server:
+## Features
+
+- Public front-end for posts, categories and contact form
+- Admin area to view contacts (protected)
+- Mock database with seeded posts and users (no external DB required)
+- Authentication using signed JWT sessions stored in a cookie
+
+## Prerequisites
+
+- Node.js 18+ (recommended)
+- npm, yarn, or pnpm
+
+## Environment Variables
+
+Create a `.env.local` file in the project root with at least:
+
+```
+SESSION_SECRET=your_random_secret_here
+# Optional: override API base URL when needed
+API_BASE=http://localhost:3000/api
+```
+
+Make sure `SESSION_SECRET` is a long, random string in production.
+
+## Quick Start
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Start the dev server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Open the app at: `http://localhost:3000`
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Admin account
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Use the seeded admin to log in to the admin area (for local/testing):
 
-## Learn More
+- **Email:** `admin123@gmail.com`
+- **Password:** `admin123`
 
-To learn more about Next.js, take a look at the following resources:
+## Build & Run for Production
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run build
+npm start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Lint
 
-## Deploy on Vercel
+```bash
+npm run lint
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Notes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Data is stored in-memory (see `src/lib/database.js`) and will reset on restart.
+- For production, provide a secure `SESSION_SECRET` and connect to a persistent DB if required.

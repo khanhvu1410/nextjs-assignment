@@ -8,7 +8,7 @@ export async function POST(request) {
     const body = await request.json();
     const user = await login(body);
 
-    await createSession({ id: user.id, role: user.role });
+    await createSession({ id: user.id, name: user.name, role: user.role });
 
     return NextResponse.json({
       message: 'Login successfully',

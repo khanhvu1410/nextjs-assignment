@@ -3803,7 +3803,7 @@ footer ul li {
 .admin-header .user-menu {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .admin-content {
@@ -3958,6 +3958,11 @@ footer ul li {
 
 .btn-admin.danger:hover {
   background: #c82333;
+}
+
+.logout:hover {
+  cursor: pointer;
+  color: #6c757d;
 }
 
 /* Responsive Admin Layout */

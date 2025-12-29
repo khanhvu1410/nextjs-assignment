@@ -1090,7 +1090,7 @@ const users = [
     id: 1,
     email: 'admin123@gmail.com',
     password: 'admin123',
-    name: 'Admin',
+    name: 'Khanh Admin',
     role: USER_ROLE.ADMIN,
   },
   {

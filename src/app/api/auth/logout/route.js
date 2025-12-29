@@ -1,4 +1,15 @@
+import { handleError } from '@/helper/route-helper';
+import { deleteSession } from '@/lib/session';
 import { NextResponse } from 'next/server';
-import { removeAuthToken } from '@/lib/auth';
 
-export async function POST() {}
+export async function POST() {
+  try {
+    await deleteSession();
+    return NextResponse.json({
+      message: 'Logout successfully',
+      success: true,
+    });
+  } catch (error) {
+    handleError(error);
+  }
+}

@@ -1,4 +1,18 @@
+'use client';
+
+import { AUTH_URL } from '@/constant/url';
+import { useLogout } from '@/hooks/useAuth';
+import { useRouter } from 'next/navigation';
+
 export default function AdminLayout({ children }) {
+  const router = useRouter();
+  const { mutateAsync: logout } = useLogout();
+
+  const handleLogout = async () => {
+    await logout();
+    router.push(AUTH_URL.LOGIN);
+  };
+
   return (
     <div className="admin-layout">
       <aside className="admin-sidebar">
@@ -18,8 +32,14 @@ export default function AdminLayout({ children }) {
       <main className="admin-main">
         <header className="admin-header">
           <h1>Contacts Management</h1>
-          <div className="user-menu">
-            <span>Admin User</span>
+          <div
+            className="user-menu logout"
+            onClick={() => {
+              handleLogout();
+            }}
+          >
+            <i className="fa fa-sign-out "></i>
+            Logout
           </div>
         </header>
 

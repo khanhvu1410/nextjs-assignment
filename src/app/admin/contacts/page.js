@@ -1,7 +1,7 @@
 import { CONTACTS_LIMIT } from '@/constant/pagination-limit';
 import { getContacts } from '@/api-service/contacts';
-import Pagination from '@/components/shared/Pagination';
 import { cookies } from 'next/headers';
+import Pagination from '@/components/shared/Pagination';
 
 export default async function ContactsPage({ searchParams }) {
   const page = (await searchParams).page;

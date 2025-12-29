@@ -1,4 +1,4 @@
-import { login } from '@/api-service/auth';
+import { login, logout } from '@/api-service/auth';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 
@@ -11,5 +11,11 @@ export const useLogin = () => {
     onError: (error) => {
       toast.error(error.message);
     },
+  });
+};
+
+export const useLogout = () => {
+  return useMutation({
+    mutationFn: logout,
   });
 };
