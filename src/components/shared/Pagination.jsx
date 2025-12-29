@@ -1,9 +1,10 @@
-'use-client';
+import Link from 'next/link';
 
 export default function Pagination({
   currentPage,
   totalPages,
-  handlePageChange,
+  baseUrl,
+  forAdmin = false,
 }) {
   const getPageNumbers = () => {
     const pages = [];
@@ -24,16 +25,14 @@ export default function Pagination({
   };
 
   return (
-    <>
+    <div className={forAdmin ? 'admin-pagination' : ''}>
       {currentPage > 1 ? (
-        <button
-          onClick={() => {
-            handlePageChange(currentPage - 1);
-          }}
+        <Link
+          href={`${baseUrl}?page=${currentPage - 1}`}
           className="page-numbers prev"
         >
           Prev
-        </button>
+        </Link>
       ) : (
         <span className="page-numbers prev inactive">Prev</span>
       )}
@@ -44,30 +43,26 @@ export default function Pagination({
             {page}
           </span>
         ) : (
-          <button
+          <Link
             key={page}
-            onClick={() => {
-              handlePageChange(page);
-            }}
+            href={`${baseUrl}?page=${page}`}
             className="page-numbers"
           >
             {page}
-          </button>
+          </Link>
         )
       )}
 
       {currentPage < totalPages ? (
-        <button
-          onClick={() => {
-            handlePageChange(currentPage + 1);
-          }}
+        <Link
+          href={`${baseUrl}?page=${currentPage + 1}`}
           className="page-numbers next"
         >
           Next
-        </button>
+        </Link>
       ) : (
         <span className="page-numbers next inactive">Next</span>
       )}
-    </>
+    </div>
   );
 }

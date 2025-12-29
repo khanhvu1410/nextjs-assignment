@@ -20,6 +20,9 @@
  *  13. footer
  *  14. blog styles
  *  15. page styles
+ *  16. custom toastify
+ *  17. admin styles
+ *  18. admin pagination styles
  *
  * =================================================================== */
 
@@ -716,10 +719,29 @@ label > input[type='radio'] {
   color: #777777 !important;
 }
 
+/* Contact Form */
+#cForm input,
+#cForm textarea {
+  margin-bottom: 1rem;
+}
+
+#cForm .form-field {
+  margin-bottom: 3rem;
+}
+
+#cForm p {
+  margin: 0;
+}
+
+.error-message {
+  color: red;
+  font-size: 1.5rem;
+}
+
 /* ===================================================================
- *  06. buttons - (_button-essentials.scss)
- *
- * ------------------------------------------------------------------- */
+  *  06. buttons - (_button-essentials.scss)
+  *
+  * ------------------------------------------------------------------- */
 .button,
 a.button,
 button,
@@ -836,6 +858,73 @@ button::-moz-focus-inner,
 input::-moz-focus-inner {
   border: 0;
   padding: 0;
+}
+
+/* Button Loader Styles */
+.submit.button-primary.full-width-on-mobile {
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Loading state */
+.submit.button-primary.full-width-on-mobile.loading {
+  color: transparent;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* Loader spinner */
+.submit.button-primary.full-width-on-mobile.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid #ffffff;
+  border-radius: 50%;
+  animation: button-spin 0.8s linear infinite;
+}
+
+/* Disabled state */
+.submit.button-primary.full-width-on-mobile:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.submit.button-primary.full-width-on-mobile:disabled:hover {
+  background: #151515;
+  color: #ffffff;
+}
+
+/* Loading animation */
+@keyframes button-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Mobile responsiveness for the loader */
+@media only screen and (max-width: 600px) {
+  .submit.button-primary.full-width-on-mobile.loading::after {
+    width: 18px;
+    height: 18px;
+    margin: -9px 0 0 -9px;
+  }
+}
+
+/* Optional: Add a smooth transition for the text disappearing */
+.submit.button-primary.full-width-on-mobile span {
+  transition: opacity 0.3s ease;
+}
+
+.submit.button-primary.full-width-on-mobile.loading span {
+  opacity: 0;
 }
 
 /* ===================================================================
@@ -2235,6 +2324,49 @@ header .logo a {
   max-width: 800px;
 }
 
+/* Center login page form only (scoped) */
+#content-wrap.login-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 130px);
+  padding-top: 0;
+  margin: 0;
+}
+
+#content-wrap.login-center .row.narrow {
+  max-width: 420px; /* keep login form compact */
+  width: 100%;
+}
+
+#content-wrap.login-center .col-twelve {
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#content-wrap.login-center .form-field input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#content-wrap.login-center .primary-content {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  #content-wrap.login-center {
+    min-height: calc(100vh - 110px);
+    padding: 2rem 1rem;
+  }
+  #content-wrap.login-center .primary-content {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
 #content-wrap .content-media {
   position: relative;
   margin-bottom: 4.8rem;
@@ -3510,4 +3642,483 @@ footer ul li {
  * ----------------------------------------------- */
 #cForm {
   margin-top: 3.6rem;
+}
+
+/* ===================================================================
+ *  16. custom toastify
+ *
+ * ------------------------------------------------------------------- */
+.Toastify__toast-container {
+  width: 400px;
+}
+
+.Toastify__toast {
+  min-width: 350px;
+  max-width: 500px;
+  width: auto;
+  font-family: 'montserrat-regular', sans-serif;
+  font-size: 1.4rem;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.Toastify__toast-body {
+  padding: 12px 16px;
+}
+
+/* Dark theme to match your button */
+.Toastify__toast--dark {
+  background: #151515;
+  color: #ffffff;
+}
+
+/* Success toast */
+.Toastify__toast--success {
+  background: #151515;
+  color: #ffffff;
+  border-left: 4px solid #4caf50;
+}
+
+/* Error toast */
+.Toastify__toast--error {
+  background: #151515;
+  color: #ffffff;
+  border-left: 4px solid #f44336;
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .Toastify__toast-container {
+    width: 90vw;
+    left: 5vw;
+    right: 5vw;
+  }
+
+  .Toastify__toast {
+    min-width: 90vw;
+    max-width: 90vw;
+    font-size: 1.3rem;
+  }
+}
+
+/* ===================================================================
+ *  17. admin styles
+ *
+ * ------------------------------------------------------------------- */
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.admin-sidebar {
+  width: 250px;
+  background: #151515;
+  color: #ffffff;
+  padding: 2rem 0;
+  position: fixed;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.admin-sidebar .sidebar-header {
+  padding: 0 2rem 2rem 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 2rem;
+}
+
+.admin-sidebar .sidebar-header h2 {
+  color: #ffffff;
+  font-size: 1.8rem;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+}
+
+.admin-sidebar .sidebar-nav {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.admin-sidebar .sidebar-nav li {
+  margin: 0;
+  padding: 0;
+}
+
+.admin-sidebar .sidebar-nav li a {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  border-left: 4px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.admin-sidebar .sidebar-nav li a i {
+  margin-right: 1rem;
+  font-size: 1.6rem;
+  width: 20px;
+  text-align: center;
+}
+
+.admin-sidebar .sidebar-nav li a:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  border-left-color: #1237b1;
+}
+
+.admin-sidebar .sidebar-nav li a.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-left-color: #1237b1;
+}
+
+.admin-main {
+  flex: 1;
+  margin-left: 250px;
+  min-height: 100vh;
+}
+
+.admin-header {
+  background: #ffffff;
+  padding: 1.5rem 3rem;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.admin-header h1 {
+  font-size: 2.4rem;
+  margin: 0;
+  color: #151515;
+}
+
+.admin-header .user-menu {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.admin-content {
+  padding: 3rem;
+}
+
+/* Admin Tables */
+.admin-table-container {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.admin-table-header {
+  padding: 2rem;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-table-header h2 {
+  margin: 0;
+  font-size: 2rem;
+  color: #151515;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th {
+  background: #f8f9fa;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  font-size: 1.3rem;
+  padding: 1.5rem;
+  border-bottom: 2px solid #e5e5e5;
+  text-align: left;
+}
+
+.admin-table td {
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e5e5;
+  vertical-align: middle;
+}
+
+.admin-table tbody tr:hover {
+  background: #f8f9fa;
+}
+
+/* Admin Cards */
+.admin-card {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.admin-card-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.admin-card-header h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #151515;
+}
+
+/* Admin Stats */
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.stat-card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.stat-card .stat-number {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #151515;
+  margin-bottom: 0.5rem;
+}
+
+.stat-card .stat-label {
+  color: #666;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+}
+
+/* Admin Actions */
+.admin-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-admin {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  background: #151515;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'montserrat-regular', sans-serif;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  transition: background 0.3s ease;
+}
+
+.btn-admin:hover {
+  background: #000000;
+}
+
+.btn-admin.secondary {
+  background: #6c757d;
+}
+
+.btn-admin.secondary:hover {
+  background: #5a6268;
+}
+
+.btn-admin.success {
+  background: #28a745;
+}
+
+.btn-admin.success:hover {
+  background: #218838;
+}
+
+.btn-admin.danger {
+  background: #dc3545;
+}
+
+.btn-admin.danger:hover {
+  background: #c82333;
+}
+
+/* Responsive Admin Layout */
+@media only screen and (max-width: 768px) {
+  .admin-sidebar {
+    width: 70px;
+    overflow: hidden;
+  }
+
+  .admin-sidebar .sidebar-header h2,
+  .admin-sidebar .sidebar-nav li a span {
+    display: none;
+  }
+
+  .admin-sidebar .sidebar-nav li a {
+    justify-content: center;
+    padding: 1.5rem;
+  }
+
+  .admin-sidebar .sidebar-nav li a i {
+    margin-right: 0;
+    font-size: 1.8rem;
+  }
+
+  .admin-main {
+    margin-left: 70px;
+  }
+
+  .admin-content {
+    padding: 2rem;
+  }
+
+  .admin-table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .admin-header {
+    padding: 1rem 1.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .admin-header .user-menu {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .admin-content {
+    padding: 1.5rem;
+  }
+
+  .admin-table-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .admin-actions {
+    flex-direction: column;
+  }
+
+  .btn-admin {
+    width: 100%;
+  }
+}
+
+/* ===================================================================
+ *  18. admin pagination style
+ * ------------------------------------------------------------------- */
+.admin-pagination {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.admin-pagination .pagination {
+  display: inline-flex;
+  gap: 0.5rem;
+  margin: 0 auto;
+  padding: 0.5rem;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.admin-pagination .page-numbers {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 8px;
+  margin: 0;
+  color: #151515;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-family: 'montserrat-regular', sans-serif;
+  font-size: 1.4rem;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.admin-pagination .page-numbers:hover {
+  background-color: #e9ecef;
+  border-color: #adb5bd;
+}
+
+/* Current page */
+.admin-pagination .current {
+  background-color: #151515;
+  color: #fff;
+  border-color: #151515;
+}
+
+.admin-pagination .current:hover {
+  background-color: #000;
+  border-color: #000;
+}
+
+/* Inactive state */
+.admin-pagination .inactive {
+  color: #adb5bd;
+  cursor: not-allowed;
+}
+
+.admin-pagination .inactive,
+.admin-pagination .inactive:hover {
+  background-color: #f8f9fa;
+  border-color: #dee2e6;
+}
+
+/* Right-aligned pagination */
+.admin-table-container .admin-pagination {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 1rem;
+}
+
+.admin-table-container .admin-pagination .pagination {
+  margin: 0;
+}
+
+/* Mobile responsive */
+@media only screen and (max-width: 768px) {
+  .admin-pagination .pagination {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.3rem;
+  }
+
+  .admin-pagination .page-numbers {
+    min-width: 32px;
+    height: 32px;
+    font-size: 1.3rem;
+  }
+
+  .admin-table-container .admin-pagination {
+    justify-content: center;
+  }
 }

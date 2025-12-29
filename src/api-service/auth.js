@@ -1,9 +1,11 @@
-import axiosInstance from '@/lib/axios-config';
+import { getApi } from '@/lib/axios-config';
+
+const api = getApi();
 
 export const login = async (credentials) => {
-  return axiosInstance.post('/login', credentials);
+  return api.post('/auth/login', credentials);
 };
 
 export const logout = async () => {
-  return axiosInstance.post('/logout');
+  return api.post('/auth/logout');
 };

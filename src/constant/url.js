@@ -1,7 +1,20 @@
-const BASE_FRONT_URL = '/front';
+const FRONT_BASE = '/front';
+const ADMIN_BASE = '/admin';
 
 export const FRONT_URL = {
-  HOME: `${BASE_FRONT_URL}/home`,
-  CATEGORY: `${BASE_FRONT_URL}/categories`,
-  CATEGORY_WITH_ID: `${BASE_FRONT_URL}/categories/:id`,
+  BASE: FRONT_BASE,
+  HOME: `${FRONT_BASE}/home`,
+  POSTS_WITH_ID: `${FRONT_BASE}/posts/:id`,
+  CATEGORIES: `${FRONT_BASE}/categories`,
+  CATEGORIES_WITH_ID: `${FRONT_BASE}/categories/:id`,
+  CONTACT: `${FRONT_BASE}/contact`,
+};
+
+export const ADMIN_URL = {
+  BASE: ADMIN_BASE,
+  CONTACTS: `${ADMIN_BASE}/contacts`,
+};
+
+export const AUTH_URL = {
+  LOGIN: '/login',
 };

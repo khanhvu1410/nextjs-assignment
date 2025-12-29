@@ -1,30 +1,18 @@
-'use client';
-
 import { POSTS_LIMIT } from '@/constant/pagination-limit';
-import { useCategory } from '@/hooks/useCategories';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { getPosts } from '@/api-service/posts';
+import { getCategoryById } from '@/api-service/categories';
 import Posts from '@/components/front/Posts';
-import SkeletonLoader from '@/components/shared/SkeletonLoader';
 
-export default function CategoryPage() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const { id } = useParams();
-
-  const { data: category, isLoading } = useCategory(id);
-
-  const page = parseInt(searchParams.get('page') || '1');
+export default async function CategoryPage({ params, searchParams }) {
+  const categoryId = (await params).id;
+  const page = (await searchParams).page || '1';
   const limit = POSTS_LIMIT;
 
-  const handlePageChange = (newPage) => {
-    const params = new URLSearchParams(searchParams);
-    params.set('page', newPage.toString());
-    router.push(`?${params.toString()}`);
-  };
+  const posts = await getPosts({ page, limit, categoryId });
+  const category = await getCategoryById(categoryId);
 
   return (
     <>
-      {isLoading && <SkeletonLoader />}
       <section id="page-header">
         <div className="row current-cat">
           <div className="col-full">
@@ -33,11 +21,11 @@ export default function CategoryPage() {
         </div>
       </section>
       <Posts
-        page={page}
-        limit={limit}
-        categoryId={id}
-        handlePageChange={handlePageChange}
+        posts={posts}
+        baseUrl={`/front/categories/${categoryId}`}
+        forCategory={true}
       />
+      ;
     </>
   );
 }

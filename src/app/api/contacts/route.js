@@ -1,39 +1,41 @@
 import { db } from '@/lib/database';
 import { NextResponse } from 'next/server';
-import { handleError } from '../response-helper';
+import { handleError } from '../../../helper/route-helper';
+import { CONTACTS_LIMIT } from '@/constant/pagination-limit';
+import { verifyToken } from '@/lib/auth';
+
+export async function GET(request) {
+  try {
+    await verifyToken(request);
+
+    const { searchParams } = new URL(request.url);
+    const page = parseInt(searchParams.get('page') || '1');
+    const limit = parseInt(searchParams.get('limit') || `${CONTACTS_LIMIT}`);
+
+    const result = await db.getContacts({ page, limit });
+
+    return NextResponse.json({
+      success: true,
+      ...result,
+    });
+  } catch (error) {
+    return handleError(error);
+  }
+}
 
 export async function POST(request) {
   try {
     const body = await request.json();
-
-    // Validation
-    if (!body.name || !body.email || !body.message) {
-      return NextResponse.json(
-        { error: 'Name, email, and message are required' },
-        { status: 400 }
-      );
-    }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(body.email)) {
-      return NextResponse.json(
-        { error: 'Please enter a valid email address' },
-        { status: 400 }
-      );
-    }
-
     const newContact = await db.addContact(body);
 
     return NextResponse.json(
       {
         success: true,
-        message: 'Thank you for your message! We will get back to you soon.',
         data: newContact,
       },
       { status: 201 }
     );
   } catch (error) {
-    handleError(error);
+    return handleError(error);
   }
 }

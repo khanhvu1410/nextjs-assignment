@@ -1,6 +1,6 @@
 import { db } from '@/lib/database';
 import { NextResponse } from 'next/server';
-import { handleError } from '../../response-helper';
+import { handleError } from '../../../../helper/route-helper';
 
 export async function GET(_, { params }) {
   try {
@@ -14,6 +14,6 @@ export async function GET(_, { params }) {
 
     return NextResponse.json({ success: true, data: category });
   } catch (error) {
-    handleError(error.message);
+    return handleError(error);
   }
 }

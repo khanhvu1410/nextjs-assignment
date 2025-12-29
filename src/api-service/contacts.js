@@ -1,9 +1,20 @@
-import axiosInstance from '@/lib/axios-config';
+import { getApi } from '@/lib/axios-config';
 
 export const submitContact = async (contactData) => {
-  return axiosInstance.post('/contacts', contactData);
+  const api = getApi();
+  return api.post('/contacts', contactData);
 };
 
-export const getContacts = async ({ page = 1, limit = 20 } = {}) => {
-  return axiosInstance.get('/contacts', { params: { page, limit } });
+export const getContacts = async ({
+  page = 1,
+  limit = 20,
+  accessToken,
+} = {}) => {
+  const api = getApi({
+    server: true,
+    accessToken: accessToken,
+  });
+  return api.get('/contacts', {
+    params: { page, limit },
+  });
 };

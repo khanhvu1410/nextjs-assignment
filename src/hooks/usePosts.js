@@ -1,24 +1,24 @@
-import { getFeaturedPosts, getPostBySlug, getPosts } from '@/api-service/posts';
+import { getFeaturedPosts, getPostById, getPosts } from '@/api-service/posts';
 import { useQuery } from '@tanstack/react-query';
 
 export const postQueryKeys = {
   posts: (params) => ['posts', params],
-  post: (slug) => ['post', slug],
+  post: (id) => ['post', id],
 };
 
 export const usePosts = (params = {}) => {
   return useQuery({
     queryKey: postQueryKeys.posts(params),
     queryFn: () => getPosts(params),
-    keepPreviousData: true, // Smooth pagination
+    keepPreviousData: true,
   });
 };
 
-export const usePost = (slug) => {
+export const usePost = (id) => {
   return useQuery({
-    queryKey: postQueryKeys.post(slug),
-    queryFn: () => getPostBySlug(slug),
-    enabled: !!slug, // Only run if slug exists
+    queryKey: postQueryKeys.post(id),
+    queryFn: () => getPostById(id),
+    enabled: !!id,
   });
 };
 

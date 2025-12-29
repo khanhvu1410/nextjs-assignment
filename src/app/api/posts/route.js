@@ -1,6 +1,6 @@
 import { db } from '@/lib/database';
 import { NextResponse } from 'next/server';
-import { handleError } from '../response-helper';
+import { handleError } from '../../../helper/route-helper';
 
 export async function GET(request) {
   try {
@@ -23,6 +23,6 @@ export async function GET(request) {
       ...result,
     });
   } catch (error) {
-    return handleError(error.message);
+    return handleError(error);
   }
 }

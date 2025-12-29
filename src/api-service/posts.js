@@ -1,11 +1,12 @@
 import { POSTS_LIMIT } from '@/constant/pagination-limit';
-import axiosInstance from '@/lib/axios-config';
+import { getApi } from '@/lib/axios-config';
 
 export const getPosts = async ({
   page = 1,
   limit = POSTS_LIMIT,
   categoryId,
   search,
+  accessToken,
 } = {}) => {
   const params = {
     page,
@@ -13,16 +14,27 @@ export const getPosts = async ({
     ...(categoryId && { categoryId }),
     ...(search && { search }),
   };
-
-  return axiosInstance.get('/posts', { params });
+  const api = getApi({
+    server: true,
+    accessToken: accessToken,
+  });
+  return api.get('/posts', { params });
 };
 
-export const getPostBySlug = async (slug) => {
-  return axiosInstance.get(`/posts/${slug}`);
+export const getPostById = async (id, accessToken) => {
+  const api = getApi({
+    server: true,
+    accessToken: accessToken,
+  });
+  return api.get(`/posts/${id}`);
 };
 
-export const getFeaturedPosts = async (limit = 3) => {
-  return axiosInstance.get('/posts', {
+export const getFeaturedPosts = async (limit = 3, accessToken) => {
+  const api = getApi({
+    server: true,
+    accessToken: accessToken,
+  });
+  return api.get('/posts', {
     params: { limit, featured: true },
   });
 };
